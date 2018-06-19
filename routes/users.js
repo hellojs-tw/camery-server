@@ -2,11 +2,13 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
-router.post('/create', function(req, res) {
+router.post('/create', function(req, res, next) {
   models.User.create({
     username: req.body.username
   }).then(function() {
     res.redirect('/');
+  }).catch(function(error) {
+    next(error);
   });
 });
 
